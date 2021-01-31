@@ -1,9 +1,12 @@
 """This is a Coffee Maker Application"""
 # Imports
+import os
+
 from data import menu, resources
 from logo import logo
 
 revenue = 0
+print(logo)
 
 
 def check_resources(ingredients):
@@ -40,7 +43,7 @@ def check_transaction(coins_received, drink_cost):
 def coffee(drink):
     """This function returns the kind of coffee the user wants."""
     if drink not in menu:
-        print("Unknown to Coffee Maker")
+        print("Unknown to Coffee Maker\n")
     else:
         coffee_req = menu[drink]
         ingredients = coffee_req["ingredients"]
@@ -56,11 +59,19 @@ def coffee(drink):
             print(f'Unable to make {drink}.\n')
 
 
+def clear():
+    """This function clears the console."""
+    os.system('clear')
+
+
 turn_off = False
 while not turn_off:
-    print(logo)
+
     # User Prompt
     default = input('Do you want a coffee? ').lower()
+
+    clear()
+    print(logo)
 
     if default == 'yes':
         user_drink = input('What would you like? ').lower()
