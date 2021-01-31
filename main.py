@@ -1,12 +1,13 @@
 """This is a Coffee Maker Application"""
 # Imports
 from data import menu, resources
+from logo import logo
 
 revenue = 0
 
 
 def check_resources(ingredients):
-    """This function checks if there's enough resources to make the kind of coffee requested"""
+    """This function checks if there's enough resources to make the kind of coffee requested."""
     for material in ingredients:
         if ingredients[material] >= resources[material]:
             print(f"The Coffee Maker is out of {material} at the moment.")
@@ -16,7 +17,7 @@ def check_resources(ingredients):
 
 def process_coins():
     """This functions process the coins inserted"""
-    print("We only accept payment in COINS, kindly pay your bills")
+    print("COINS only should be inserted into the coffee maker.")
     coins = int(input("How many Two Euros? ")) * 2
     coins += int(input("How many One Euro? ")) * 1
     coins += int(input("How many Fifty Cent? ")) * 0.50
@@ -29,7 +30,7 @@ def check_transaction(coins_received, drink_cost):
         global revenue
         revenue += drink_cost
         change = round(coins_received - drink_cost, 2)
-        print(f"Order in progress, your change is: €{change}")
+        print(f"Your change is: €{change:.2f}, making your coffee...")
         return True
     else:
         print("The payment is incomplete, you have been refunded!\n")
@@ -39,7 +40,7 @@ def check_transaction(coins_received, drink_cost):
 def coffee(drink):
     """This function returns the kind of coffee the user wants."""
     if drink not in menu:
-        print("Invalid coffee request")
+        print("Unknown to Coffee Maker")
     else:
         coffee_req = menu[drink]
         ingredients = coffee_req["ingredients"]
@@ -50,15 +51,16 @@ def coffee(drink):
             if check_transaction(payment, bill):
                 for material in ingredients:
                     resources[material] -= ingredients[material]
-                print(f"Order completed, here is your {drink} ☕️. Enjoy!\n")
+                print(f"Coffee is ready, here is your {drink} ☕️. Enjoy!\n")
         else:
             print(f'Unable to make {drink}.\n')
 
 
 turn_off = False
 while not turn_off:
+    print(logo)
     # User Prompt
-    default = input('\nDo you want a coffee? ').lower()
+    default = input('Do you want a coffee? ').lower()
 
     if default == 'yes':
         user_drink = input('What would you like? ').lower()
@@ -70,10 +72,10 @@ while not turn_off:
         turn_off = True
         print('The Coffee Maker is off.')
     elif default == 'report':
-        print(f'The current resources available are:\n '
+        print(f'Coffee Maker Report:\n '
               f'Water: {resources["water"]}ml\n '
               f'Milk: {resources["milk"]}ml\n '
               f'Coffee: {resources["coffee"]}g\n '
               f'Total sales: €{revenue:.2f}\n')
     else:
-        print('Invalid response.')
+        print('Invalid response.\n')
