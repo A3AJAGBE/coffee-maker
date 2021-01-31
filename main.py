@@ -13,6 +13,7 @@ def coffee(drink):
 
 turn_off = False
 while not turn_off:
+    revenue = 0
     # User Prompt
     default = input('Do you want a coffee? ').lower()
 
@@ -22,6 +23,12 @@ while not turn_off:
     elif default == 'off':
         turn_off = True
         print('The Coffee Maker is off.')
+    elif default == 'report':
+        print(f'The current resources available are:\n '
+              f'Water: {resources["water"]}ml\n '
+              f'Milk: {resources["milk"]}ml\n '
+              f'Coffee: {resources["coffee"]}g\n '
+              f'Total sales: €{revenue:.2f}\n')
     else:
         print('Invalid response.')
 
