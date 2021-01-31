@@ -5,4 +5,4 @@
 This is a coffee maker application. This makes 3 kinds of coffee; espressso, latte and cappuccino.
 
 
-![Demo]()
+![Demo](https://github.com/A3AJAGBE/coffee-maker/blob/main/coffee-maker.gif)
