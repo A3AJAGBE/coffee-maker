@@ -2,6 +2,8 @@
 # Imports
 from data import menu, resources
 
+revenue = 0
+
 
 def check_resources(ingredients):
     """This function checks if there's enough resources to make the kind of coffee requested"""
@@ -10,6 +12,28 @@ def check_resources(ingredients):
             print(f"The Coffee Maker is out of {material} at the moment.")
             return False
     return True
+
+
+def process_coins():
+    """This functions process the coins inserted"""
+    print("We only accept payment in COINS, kindly pay your bills")
+    coins = int(input("How many Two Euros? ")) * 2
+    coins += int(input("How many One Euro? ")) * 1
+    coins += int(input("How many Fifty Cent? ")) * 0.50
+    return coins
+
+
+def check_transaction(coins_received, drink_cost):
+    """This function check if the coins inserted is sufficient or not."""
+    if coins_received >= drink_cost:
+        global revenue
+        revenue += drink_cost
+        change = round(coins_received - drink_cost, 2)
+        print(f"Order in progress, your change is: €{change}")
+        return True
+    else:
+        print("The payment is incomplete, you have been refunded!\n")
+        return False
 
 
 def coffee(drink):
@@ -22,16 +46,17 @@ def coffee(drink):
         if check_resources(ingredients):
             bill = menu[drink]["cost"]
             print(f'The {user_drink} price is €{bill:.2f}')
-            for material in ingredients:
-                resources[material] -= ingredients[material]
-            print(f"Order completed, here is your {drink} ☕️. Enjoy!\n")
+            payment = process_coins()
+            if check_transaction(payment, bill):
+                for material in ingredients:
+                    resources[material] -= ingredients[material]
+                print(f"Order completed, here is your {drink} ☕️. Enjoy!\n")
         else:
-            print(f'Unable to {drink}.\n')
+            print(f'Unable to make {drink}.\n')
 
 
 turn_off = False
 while not turn_off:
-    revenue = 0
     # User Prompt
     default = input('\nDo you want a coffee? ').lower()
 
