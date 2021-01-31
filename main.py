@@ -74,6 +74,7 @@ while not turn_off:
     print(logo)
 
     if default == 'yes':
+        print('This coffee maker only makes Espresso, Latte and Cappuccino.')
         user_drink = input('What would you like? ').lower()
         coffee(user_drink)
     elif default == 'no':
